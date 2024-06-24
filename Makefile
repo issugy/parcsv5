@@ -16,10 +16,15 @@ out/ParcsJob.jar: out/parcs.jar src/main/java/org/example/ParcsJob.java
 	@jar cf out/ParcsJob.jar -C out org/example/ParcsJob.class
 	@rm -f out/org/example/ParcsJob.class
 
-build: out out/PerfectNumberChecker.jar out/ParcsJob.jar
+out/Main.jar: out/parcs.jar src/main/java/org/example/Main.java
+	@javac -cp out/parcs.jar --release 17 -d out src/main/java/org/example/Main.java
+	@jar cf out/Main.jar -C out org/example/Main.class
+	@rm -f out/org/example/Main.class
 
-run: out/ParcsJob.jar out/PerfectNumberChecker.jar
-	@cd out && java -cp 'parcs.jar:ParcsJob.jar:PerfectNumberChecker.jar' org.example.Main
+build: out out/PerfectNumberChecker.jar out/ParcsJob.jar out/Main.jar
+
+run: out/ParcsJob.jar out/PerfectNumberChecker.jar out/Main.jar
+	@cd out && java -cp 'parcs.jar:ParcsJob.jar:PerfectNumberChecker.jar:Main.jar' org.example.Main
 
 out/parcs.jar:
 	cp src/libs/parcs.jar out/parcs.jar
