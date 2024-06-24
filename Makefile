@@ -1,7 +1,10 @@
 all: run
 
 clean:
-	rm -f out/*.jar
+	rm -rf out
+
+out:
+	mkdir -p out
 
 out/PerfectNumberChecker.jar: out/parcs.jar src/main/java/org/example/PerfectNumberChecker.java src/main/java/org/example/PerfectNumberCounter.java
 	@javac -cp out/parcs.jar --release 17 -d out src/main/java/org/example/PerfectNumberChecker.java src/main/java/org/example/PerfectNumberCounter.java
@@ -13,11 +16,10 @@ out/ParcsJob.jar: out/parcs.jar src/main/java/org/example/ParcsJob.java
 	@jar cf out/ParcsJob.jar -C out org/example/ParcsJob.class
 	@rm -f out/org/example/ParcsJob.class
 
-build: out/PerfectNumberChecker.jar out/ParcsJob.jar
+build: out out/PerfectNumberChecker.jar out/ParcsJob.jar
 
 run: out/ParcsJob.jar out/PerfectNumberChecker.jar
 	@cd out && java -cp 'parcs.jar:ParcsJob.jar:PerfectNumberChecker.jar' org.example.Main
 
 out/parcs.jar:
 	cp src/libs/parcs.jar out/parcs.jar
-
