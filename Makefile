@@ -14,4 +14,4 @@ run: out/PerfectNumberCounter.jar
 	@cd out && java -cp 'parcs.jar:PerfectNumberCounter.jar' org.example.Main
 
 out/parcs.jar:
-	cp /path/to/your/libs/parcs.jar out/parcs.jar
+	cp /libs/parcs.jar out/parcs.jar
